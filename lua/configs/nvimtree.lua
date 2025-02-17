@@ -1,0 +1,5 @@
+return {
+  filter = {
+    dotfiles = true
+  }
+};
