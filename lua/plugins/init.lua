@@ -26,16 +26,16 @@ return {
       require "configs.dap-python"
     end
   },
---  {
---    "rcarriga/nvim-dap-ui",
---    lazy = false,
---    dependencies = {
---      "nvim-neotest/nvim-nio"
---    },
---    config = function()
---      require "configs.dapui"
---    end
---  },
+  {
+    "rcarriga/nvim-dap-ui",
+    lazy = false,
+    dependencies = {
+      "nvim-neotest/nvim-nio"
+    },
+    config = function()
+      require "configs.dapui"
+    end
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
