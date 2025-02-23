@@ -83,6 +83,31 @@ return {
     "artemave/workspace-diagnostics.nvim",
   },
   {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function ()
+      -- We cannot use the plugin's LSP as it throws an Exception with every token
+      -- handler!
+      require("go").setup({
+        -- We don't want this plugin messing up our keymaps, as it seems to
+        -- hit really common ones like O, which is really silly
+        dap_debug_keymap = false
+      })
+    end,
+    event = {
+      "CmdlineEnter"
+    },
+    ft = {
+      "go",
+      "gomod"
+    },
+    build = ":lua require('go.install').update_all_sync()"
+  },
+  {
     "folke/trouble.nvim",
     opts = {
       warn_no_results = false,
