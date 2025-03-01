@@ -17,6 +17,18 @@ vim.api.nvim_set_keymap("n", "<leader>cc", "", {
 	end
 })
 
+vim.api.nvim_create_autocmd(
+  "FileType", {
+    pattern = "gitcommit",
+    callback = function ()
+      -- Create a map for making a bullet point on the same line, mostly to start a commit
+      map("n", "oo", "i*<Space>")
+      -- Create a map for making a new bullet point, as that's how I like to write git commits 
+      map("n", "ooo", "o<CR>*<Space>")
+    end
+  }
+)
+
 -- C-style brackets and parenthesis hotkeys for insert mode
 -- We can share some of these with Python, with the notable exception of
 -- any that use semicolons
@@ -29,22 +41,14 @@ vim.api.nvim_create_autocmd("FileType", {
         -- When we open and close a bracket, automatically move the cursor within it
         -- and format for tabs and such; Python doesn't use brackets, so we don't need
         -- this one for Python at all
-        map("i", "{}", "{}<Left><CR><CR><Up><C-f>", {noremap = true})
+        map("i", "{}}", "{}<Left><CR><CR><Up><C-f>", {noremap = true})
       end
 
       -- When we open and close a parenthesis, automatically move the cursor within it;
       -- for if blocks, while loops, etc
       map("i", "()", "()<Left>", {noremap = true})
 
-      -- Python doesn't use semicolons, so we don't need to add one for our parenthesis hotkey
-      if vim.bo.filetype == "python" then
-        map("i", "((", "()<Left><CR><CR><Up><C-f>")
-      else
-        -- When we type two parenthesis, we are dealing with a function of some kind.
-        -- so automatically move the cursor within the 2 parens and format for tabs and such
-        -- We also append a semicolon as we are most likely working with a function call
-        map("i", "((", "();<Left><Left><CR><CR><Up><C-f>")
-      end
+      map("i", "())", "()<Left><CR><CR><Up><C-f>")
     end)
   end
 })

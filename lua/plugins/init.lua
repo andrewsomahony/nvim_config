@@ -42,7 +42,7 @@ return {
       ensure_installed = {
         "vim", "lua", "vimdoc",
         "html", "css", "python",
-        "dockerfile", "cpp", "go"
+        "dockerfile", "cpp", "go", "asm"
       },
     }
   },
@@ -55,7 +55,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "nvim-neotest/neotest-python",
       "mfussenegger/nvim-dap-python",
-      "mfussenegger/nvim-dap"
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/neotest-go"
     },
     config = function ()
      require("neotest").setup({
@@ -64,7 +65,8 @@ return {
             dap = {
               justMyCode = false
             }
-          })
+          }),
+          require("neotest-go")
         }
       })
     end
@@ -72,11 +74,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     opts = {
-      defaults = {
-        preview = {
-          hide_on_startup = true
-        }
-      }
+      defaults = require("configs.telescope")
     },
   },
   {

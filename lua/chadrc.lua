@@ -5,20 +5,35 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.base46 = {
-	theme = "solarized_osaka",
+local stbufnr = function ()
+  return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
+end
 
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+M.base46 = {
+  -- Set our theme to Solarized Osaka
+	theme = "solarized_osaka",
 }
 
--- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+M.ui = {
+  telescope = {
+    style = "bordered"
+  },
+  statusline = {
+    theme = "default",
+    -- Inject a custom status line entry, namely the relative path of the file in the current buffer
+    order = { "mode", "relativepath", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor"},
+    modules = {
+      relativepath = function ()
+        local path = vim.api.nvim_buf_get_name(stbufnr())
+
+        if "" == path then
+          return ""
+        end
+
+        return "%#St_relativepath#  " .. vim.fn.expand("%:.:h") .. " /"
+      end
+    }
+  }
+}
 
 return M
