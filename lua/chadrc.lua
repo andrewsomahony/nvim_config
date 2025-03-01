@@ -3,6 +3,7 @@
 -- Please read that file to know all available options :( 
 
 ---@type ChadrcConfig
+
 local M = {}
 
 local stbufnr = function ()
@@ -12,6 +13,16 @@ end
 M.base46 = {
   -- Set our theme to Solarized Osaka
 	theme = "solarized_osaka",
+  hl_add = {
+    -- We have to find the colors from our theme to use here, as we cannot
+    -- load the theme and grab the colors directly.  I suppose we could include
+    -- it directly though as the base46 plugin is doing, and extract the values
+    -- straight from its exported objects?
+    St_relativepath = { bg = "#03394F", fg = "#9eabac" },
+  },
+  hl_override = {
+    --St_file_sep = {bg = "#03394F"}
+  }
 }
 
 M.ui = {
@@ -30,7 +41,13 @@ M.ui = {
           return ""
         end
 
-        return "%#St_relativepath#  " .. vim.fn.expand("%:.:h") .. " /"
+        -- Create our relative path using Vim substitution
+        relative_path = vim.fn.expand("%:.:h") .. "/"
+        -- Put spaces between our path separators to make it look cleaner
+        relative_path = relative_path:gsub("/", " / ")
+
+        -- Slice off the trailing space of our relative path
+        return "%#St_relativepath#  " .. string.sub(relative_path, 1, -2)
       end
     }
   }

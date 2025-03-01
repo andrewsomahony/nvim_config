@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd(
       -- Create a map for making a bullet point on the same line, mostly to start a commit
       map("n", "oo", "i*<Space>")
       -- Create a map for making a new bullet point, as that's how I like to write git commits 
-      map("n", "ooo", "o<CR>*<Space>")
+      map("n", "ooo", "o<CR><Esc>0I*<Space>")
     end
   }
 )
