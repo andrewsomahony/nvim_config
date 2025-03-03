@@ -1,4 +1,4 @@
-return require('telescope.themes').get_dropdown({
+return require('telescope.themes').get_ivy({
   border = {
     prompt = { 1, 1, 1, 1 },
     results = { 1, 1, 1, 1 },
@@ -10,6 +10,9 @@ return require('telescope.themes').get_dropdown({
     results = {"─", "│", "─", "│", "├", "┤", "┘", "└"},
     preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
   },
+  layout_config = {
+    height = 20
+  },
   -- Set our prompt prefix to a caret
   prompt_prefix = " > ",
   -- Set our selection caret to a caret
@@ -20,7 +23,6 @@ return require('telescope.themes').get_dropdown({
   preview = {
     hide_on_startup = true
   },
-  width = 0.8,
   previewer = false,
   prompt_title = false
 })

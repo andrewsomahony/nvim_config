@@ -10,14 +10,14 @@ local stbufnr = function ()
   return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
 end
 
+local theme_to_use = "solarized_osaka"
+
 M.base46 = {
   -- Set our theme to Solarized Osaka
-	theme = "solarized_osaka",
+	theme = theme_to_use,
   hl_add = {
-    -- We have to find the colors from our theme to use here, as we cannot
-    -- load the theme and grab the colors directly.  I suppose we could include
-    -- it directly though as the base46 plugin is doing, and extract the values
-    -- straight from its exported objects?
+    -- We have to use our colors manually, as at the time this file is loaded,
+    -- we won't necessarily have the base46 themes available
     St_relativepath = { bg = "#03394F", fg = "#9eabac" },
   },
   hl_override = {
@@ -31,6 +31,7 @@ M.ui = {
   },
   statusline = {
     theme = "default",
+    separator_style = "default",
     -- Inject a custom status line entry, namely the relative path of the file in the current buffer
     order = { "mode", "relativepath", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor"},
     modules = {
