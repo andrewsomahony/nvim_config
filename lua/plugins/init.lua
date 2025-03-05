@@ -13,13 +13,15 @@ return {
     end,
   },
   {
+    "nvim-tree/nvim-tree.lua",
+    opts = function ()
+      return require "configs.nvimtree"
+    end
+  },
+  {
     "pocco81/auto-save.nvim",
     lazy = false
   },
---  {
---    "alfredodeza/pytest.vim",
---    lazy = false
---  },
   {
     "mfussenegger/nvim-dap-python",
     config = function()
@@ -129,5 +131,5 @@ return {
         desc = "LSP Definitions / references / ... (Trouble)"
       }
     }
-  }
+  },
 }

@@ -15,6 +15,7 @@ local theme_to_use = "solarized_osaka"
 M.base46 = {
   -- Set our theme to Solarized Osaka
 	theme = theme_to_use,
+  transparency = true,
   hl_add = {
     -- We have to use our colors manually, as at the time this file is loaded,
     -- we won't necessarily have the base46 themes available
