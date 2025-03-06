@@ -10,6 +10,7 @@ local stbufnr = function ()
   return vim.api.nvim_win_get_buf(vim.g.statusline_winid or 0)
 end
 
+
 local theme_to_use = "solarized_osaka"
 
 M.base46 = {
@@ -21,14 +22,18 @@ M.base46 = {
     -- we won't necessarily have the base46 themes available
     St_relativepath = { bg = "#03394F", fg = "#9eabac" },
   },
-  hl_override = {
-    --St_file_sep = {bg = "#03394F"}
-  }
 }
 
 M.ui = {
   telescope = {
     style = "bordered"
+  },
+  tabufline = {
+    enabled = true,
+    -- We need to remove the tree offset, as it seems to think it always
+    -- wants to be on the left side of the screen, while we want it on
+    -- the right
+    order = {"buffers", "tabs", "btns"}
   },
   statusline = {
     theme = "default",
