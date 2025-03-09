@@ -6,17 +6,8 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
--- Workspace diagnostics
-
-vim.api.nvim_set_keymap("n", "<leader>cc", "", {
-	noremap = true,
-	callback = function()
-		for _,client in ipairs(vim.lsp.get_clients()) do
-			require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
-		end
-	end
-})
-
+-- Special keybindings for our git commit buffers, so we can quickly add our
+-- bullet points
 vim.api.nvim_create_autocmd(
   "FileType", {
     pattern = "gitcommit",
@@ -44,16 +35,22 @@ vim.api.nvim_create_autocmd("FileType", {
         map("i", "{}}", "{}<Left><CR><CR><Up><C-f>", {noremap = true})
       end
 
+      map("n", "<C-b>", ":lua require('dap').toggle_breakpoint()<CR>")
+      map("n", "dc", ":lua require('dap').continue()<CR>")
+
       -- When we open and close a parenthesis, automatically move the cursor within it;
       -- for if blocks, while loops, etc
       map("i", "()", "()<Left>", {noremap = true})
 
+      -- When we type a second closing parenthesis, automatically CR and jump to the center
+      -- of the parenthesis pair
       map("i", "())", "()<Left><CR><CR><Up><C-f>")
     end)
   end
 })
 
 -- Python-specific mappings
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"py", "python"},
   callback = function()
@@ -61,35 +58,7 @@ vim.api.nvim_create_autocmd("FileType", {
       -- Simple mapping to create a Python block and be within it quickly
       map("i", "::", ":<CR><C-f>")
 
-      -- Pytest mappings
-      map("n", "pt", ":Pytest project<CR>")
-      map("n", "ps", ":Pytest session<CR><C-W>j")
-      map("n", "pf", ":Pytest file<CR>")
-      map("n", "pm", ":Pytest method<CR>")
-
-      -- Python debug mappings
-      map("n", "<C-b>", ":lua require('dap').toggle_breakpoint()<CR>")
-      map("n", "dm", ":lua require('dap-python').test_method()<CR>")
-      map("n", "dc", ":lua require('dap').continue()<CR>")
     end)
   end
 })
 
--- Telescope mappings
-
-map("n", "<Leader>fr", ":lua require('telescope.builtin').lsp_references()<CR>", {
-  noremap = true,
-  silent = true,
-  desc = "View references of the symbol under the cursor"
-})
-
-map(
-  "n",
-  "<Leader>fp",
-  ":lua require('telescope.builtin').resume()<CR>",
-  {
-    noremap = true,
-    silent = true,
-    desc = "View previous search"
-  }
-)

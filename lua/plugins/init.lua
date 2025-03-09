@@ -44,7 +44,8 @@ return {
       ensure_installed = {
         "vim", "lua", "vimdoc",
         "html", "css", "python",
-        "dockerfile", "cpp", "go", "asm"
+        "dockerfile", "cpp", "go",
+        "asm"
       },
     }
   },
@@ -63,6 +64,8 @@ return {
     config = function ()
      require("neotest").setup({
         adapters = {
+          -- Register our test adapters for Python and
+          -- for Go
           require("neotest-python")({
             dap = {
               justMyCode = false
@@ -75,8 +78,11 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
+    -- We can create our telescope by using the opts, and pass our
+    -- custom defaults into the defaults key, which will set our telescope
+    -- UI the way we want it
     opts = {
-      defaults = require("configs.telescope")
+      defaults = require("configs.telescope-defaults")
     },
   },
   {
@@ -108,29 +114,32 @@ return {
     build = ":lua require('go.install').update_all_sync()"
   },
   {
+    "leoluz/nvim-dap-go",
+    config = function ()
+      -- Manually call our setup function to register the go adapter
+      -- with dap
+      require("dap-go").setup()
+    end,
+    -- Load it all the time for now
+    -- !!! We need to figure out how to only load it for Go buffers,
+    -- !!! and even tests
+    lazy = false
+  },
+  {
     "folke/trouble.nvim",
     opts = {
       warn_no_results = false,
       open_no_results = true
     },
-    cmd = "Trouble",
-    keys = {
-      {
-        "<leader>xx",
-        ":Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)"
-      },
-      {
-        "<leader>cs",
-        ":Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)"
-      },
-      {
-        "<leader>cl",
-        ":Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)"
-      }
-    }
+    cmd = "Trouble"
+  },
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    -- Load Spectre all the time for now
+    lazy = true
   },
   {
     "tribela/transparent.nvim"
