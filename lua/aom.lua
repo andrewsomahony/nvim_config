@@ -2,6 +2,45 @@
 
 local set_keymap = vim.api.nvim_set_keymap
 
+-- Nvim Tree mappings
+
+set_keymap(
+  "n",
+  "<Leader>fw",
+  "<cmd>NvimTreeToggle<cr>",
+  {
+    noremap = true,
+    silent = true,
+    desc = "Open Nvim tree"
+  }
+)
+
+-- Neoclip mappings
+
+set_keymap(
+  "n",
+  "<Leader>fc",
+  "<cmd>Telescope neoclip<cr>",
+  {
+    noremap = true,
+    silent = true,
+    desc = "Open Neoclip tree"
+  }
+)
+
+-- Undo mappings
+
+set_keymap(
+  "n",
+  "<Leader>fu",
+  "<cmd>Telescope undo<cr>",
+  {
+    noremap = true,
+    silent = true,
+    desc = "Open Telescope undo"
+  }
+)
+
 -- Telescope mappings
 
 set_keymap(

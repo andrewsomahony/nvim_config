@@ -114,6 +114,9 @@ return {
     build = ":lua require('go.install').update_all_sync()"
   },
   {
+    -- We need this Go dap adapter because xray go only loads an adapter
+    -- when we debug (lazy loading), while we want to debug with neotest
+    -- without having to enter in a specific command.
     "leoluz/nvim-dap-go",
     config = function ()
       -- Manually call our setup function to register the go adapter
@@ -140,6 +143,45 @@ return {
     },
     -- Load Spectre all the time for now
     lazy = true
+  },
+  {
+    "AckslD/nvim-neoclip.lua",
+    dependencies = {
+      "nvim-telescope/telescope.nvim"
+    },
+    config = function ()
+      require("neoclip").setup({
+        -- We have to put the primary register as a default for some reason,
+        -- as otherwise nvim always pastes from it, but neoclip doesn't change it
+        -- with the default CR action
+        default_register = {
+          '"',
+          '*'
+        }
+      })
+    end
+  },
+  {
+    "debugloop/telescope-undo.nvim",
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim"
+        }
+      }
+    },
+    opts = {
+      extensions = {
+        undo = {
+
+        }
+      }
+    },
+    config = function (_, opts)
+      require("telescope").setup(opts)
+      require("telescope").load_extension("undo")
+    end
   },
   {
     "tribela/transparent.nvim"
