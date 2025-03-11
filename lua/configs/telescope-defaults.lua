@@ -24,9 +24,18 @@ return require('telescope.themes').get_ivy({
     hide_on_startup = true
   },
   mappings = {
-    i = { ["<c-p>"] = require("telescope.actions.layout").toggle_preview }
+    i = {
+      ["<c-p>"] = {
+        -- We have to map this to a function as we want to only load telescope.actions.layout
+        -- when the key is pressed, to avoid possible loading issues if we try when telescope
+        -- is loaded from scratch
+        function(buf_number)
+          require("telescope.actions.layout").toggle_preview(buf_number)
+        end,
+        type = "action"
+      }
+    }
   },
-  --previewer = false,
-  prompt_title = false
+  prompt_title = false,
 })
 

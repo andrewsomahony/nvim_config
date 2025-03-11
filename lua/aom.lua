@@ -6,7 +6,7 @@ local set_keymap = vim.api.nvim_set_keymap
 
 set_keymap(
   "n",
-  "<Leader>fw",
+  "<Leader>ft",
   "<cmd>NvimTreeToggle<cr>",
   {
     noremap = true,
@@ -86,7 +86,7 @@ set_keymap(
 set_keymap(
   "n",
   "<leader>ts",
-  "<cmd>Trouble symbols toggle focus=false<cr>",
+  "<cmd>Trouble symbols toggle focus=true<cr>",
   {
     noremap = true,
     silent = true,
@@ -96,7 +96,7 @@ set_keymap(
 set_keymap(
   "n",
   "<leader>tr",
-  "<cmd>Trouble lsp_references toggle focus=false<cr>",
+  "<cmd>Trouble lsp_references toggle focus=true<cr>",
   {
     noremap = true,
     silent = true,
@@ -106,7 +106,7 @@ set_keymap(
 set_keymap(
   "n",
   "<leader>te",
-  "<cmd>Trouble diagnostics toggle focus=false<cr>",
+  "<cmd>Trouble diagnostics toggle focus=true<cr>",
   {
     noremap = true,
     silent = true,
