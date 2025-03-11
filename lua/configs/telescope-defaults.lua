@@ -1,5 +1,3 @@
-local layout_actions = require("telescope.actions.layout")
-
 return require('telescope.themes').get_ivy({
   border = {
     prompt = { 1, 1, 1, 1 },
@@ -26,7 +24,7 @@ return require('telescope.themes').get_ivy({
     hide_on_startup = true
   },
   mappings = {
-    i = { ["<c-p>"] = layout_actions.toggle_preview }
+    i = { ["<c-p>"] = require("telescope.actions.layout").toggle_preview }
   },
   --previewer = false,
   prompt_title = false
