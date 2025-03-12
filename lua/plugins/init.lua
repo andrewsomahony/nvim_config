@@ -78,12 +78,14 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    -- We can create our telescope by using the opts, and pass our
-    -- custom defaults into the defaults key, which will set our telescope
-    -- UI the way we want it
-    opts = {
-      defaults = require("configs.telescope-defaults")
-    },
+    config = function ()
+      require("telescope").setup({
+        -- We have to setup our defaults in here, as this file's dependencies
+        -- are not available to lua when the opts are parsed, but are available
+        -- when the config method is called
+        defaults = require("configs.telescope-defaults")
+      })
+    end
   },
   {
     "artemave/workspace-diagnostics.nvim",
