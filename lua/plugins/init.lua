@@ -161,7 +161,9 @@ return {
           '*'
         }
       })
-    end
+    end,
+    -- We always want this loaded, as we need our clipboard right away
+    lazy = false
   },
   {
     "debugloop/telescope-undo.nvim",
@@ -183,7 +185,9 @@ return {
     config = function (_, opts)
       require("telescope").setup(opts)
       require("telescope").load_extension("undo")
-    end
+    end,
+    -- We always want this loaded, as we want our undo tree right away
+    lazy = false
   },
   {
     "tribela/transparent.nvim"
