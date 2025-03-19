@@ -20,6 +20,16 @@ return {
   },
   {
     "pocco81/auto-save.nvim",
+    opts = {
+      condition = function (buf)
+        local buffer_name = vim.api.nvim_buf_get_name(buf)
+        print(buffer_name)
+        return buffer_name ~= ".plan"
+          and buffer_name ~= ".gitdotplan"
+          and buffer_name ~= ".project"
+          and buffer_name ~= ".profile"
+      end
+    },
     lazy = false
   },
   {
@@ -191,5 +201,13 @@ return {
   },
   {
     "tribela/transparent.nvim"
+  },
+  {
+    "andrewsomahony/gitdotplan.nvim",
+    opts = {
+      repo_to_update="andrewsomahony/fingers.git"
+    },
+    --dir = "~/Documents/code/gitdotplan.nvim",
+    lazy = false
   }
 }
