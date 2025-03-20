@@ -36,6 +36,9 @@ return require('telescope.themes').get_ivy({
       }
     }
   },
+  file_ignore_patterns = {
+    "^%.git/"
+  },
   prompt_title = false,
 })
 

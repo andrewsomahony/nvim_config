@@ -4,8 +4,6 @@ return {
     -- event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
   },
-
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -83,7 +81,12 @@ return {
         -- We have to setup our defaults in here, as this file's dependencies
         -- are not available to lua when the opts are parsed, but are available
         -- when the config method is called
-        defaults = require("configs.telescope-defaults")
+        defaults = require("configs.telescope-defaults"),
+        pickers = {
+          find_files = {
+            hidden = true
+          }
+        }
       })
     end
   },
