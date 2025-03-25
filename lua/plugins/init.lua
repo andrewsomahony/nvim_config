@@ -113,7 +113,7 @@ return {
       require("go").setup({
         -- We don't want this plugin messing up our keymaps, as it seems to
         -- hit really common ones like O, which is really silly
-        dap_debug_keymap = false
+        dap_debug_keymap = false,
       })
     end,
     event = {
