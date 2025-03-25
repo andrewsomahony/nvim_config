@@ -11,8 +11,15 @@ return {
     end,
   },
   {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup({})
+    end
+  },
+  {
     "nvim-tree/nvim-tree.lua",
-    opts = function ()
+    opts = function()
       return require "configs.nvimtree"
     end
   },
@@ -59,8 +66,8 @@ return {
       "mfussenegger/nvim-dap",
       "nvim-neotest/neotest-go"
     },
-    config = function ()
-     require("neotest").setup({
+    config = function()
+      require("neotest").setup({
         adapters = {
           -- Register our test adapters for Python and
           -- for Go
@@ -76,7 +83,7 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    config = function ()
+    config = function()
       require("telescope").setup({
         -- We have to setup our defaults in here, as this file's dependencies
         -- are not available to lua when the opts are parsed, but are available
@@ -100,7 +107,7 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
-    config = function ()
+    config = function()
       -- We cannot use the plugin's LSP as it throws an Exception with every token
       -- handler!
       require("go").setup({
@@ -123,7 +130,7 @@ return {
     -- when we debug (lazy loading), while we want to debug with neotest
     -- without having to enter in a specific command.
     "leoluz/nvim-dap-go",
-    config = function ()
+    config = function()
       -- Manually call our setup function to register the go adapter
       -- with dap
       require("dap-go").setup()
@@ -154,7 +161,7 @@ return {
     dependencies = {
       "nvim-telescope/telescope.nvim"
     },
-    config = function ()
+    config = function()
       require("neoclip").setup({
         -- We have to put the primary register as a default for some reason,
         -- as otherwise nvim always pastes from it, but neoclip doesn't change it
@@ -185,7 +192,7 @@ return {
         }
       }
     },
-    config = function (_, opts)
+    config = function(_, opts)
       require("telescope").setup(opts)
       require("telescope").load_extension("undo")
     end,
@@ -198,8 +205,70 @@ return {
   {
     "andrewsomahony/gitdotplan.nvim",
     opts = {
-      repo_to_update="andrewsomahony/fingers.git"
+      repo_to_update = "andrewsomahony/fingers.git"
     },
+    lazy = false
+  },
+  {
+    "ray-x/navigator.lua",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig"
+    },
+    config = function()
+      local remap = require('navigator.util').binding_remap
+      require("navigator").setup({
+        mason = true,
+        default_mapping = false,
+        lsp = {
+          code_action = {
+            enable = false
+          },
+          servers = {
+            -- Add our assembly language server so we can get all the nice UI goodies with it :D
+            "asm_lsp"
+          }
+        },
+        keymaps = {
+          { key = 'gr',         func = require('navigator.reference').async_ref,                             desc = 'async_ref' },
+          { key = '<Leader>gr', func = require('navigator.reference').reference,                             desc = 'reference' }, -- reference deprecated
+          { key = '<M-k>',      func = vim.lsp.buf.signature_help,                                           desc = 'signature_help',                    mode = 'i' },
+          { key = 'K',          func = vim.lsp.buf.signature_help,                                           desc = 'signature_help' },
+          { key = '<Leader>g0', func = require('navigator.symbols').document_symbols,                        desc = 'document_symbols' },
+          { key = 'gW',         func = require('navigator.workspace').workspace_symbol_live,                 desc = 'workspace_symbol_live' },
+          { key = '<c-]>',      func = require('navigator.definition').definition,                           desc = 'definition' },
+          { key = 'gd',         func = remap(require('navigator.definition').definition, 'gd'),              desc = 'definition' },
+          { key = 'gD',         func = vim.lsp.buf.declaration,                                              desc = 'declaration', },            -- fallback used
+          -- for lsp handler
+          { key = 'gp',         func = remap(require('navigator.definition').definition_preview, 'gp'),      desc = 'definition_preview' },      -- paste
+          { key = 'gP',         func = remap(require('navigator.definition').type_definition_preview, 'gP'), desc = 'type_definition_preview' }, -- paste
+          { key = '<Leader>gt', func = require('navigator.treesitter').buf_ts,                               desc = 'buf_ts' },
+          { key = '<Leader>gT', func = require('navigator.treesitter').bufs_ts,                              desc = 'bufs_ts' },
+          { key = '<Leader>ct', func = require('navigator.ctags').ctags,                                     desc = 'ctags' },
+          { key = '<Space>ca',  func = require('navigator.codeAction').code_action,                          desc = 'code_action',                       mode = { 'n', 'v' } },
+          -- { key = '<Leader>re', func = 'rename()' },
+          { key = '<Space>rn',  func = require('navigator.rename').rename,                                   desc = 'rename' },
+          { key = '<Leader>gi', func = vim.lsp.buf.incoming_calls,                                           desc = 'incoming_calls' },
+          { key = '<Leader>go', func = vim.lsp.buf.outgoing_calls,                                           desc = 'outgoing_calls' },
+          { key = 'gi',         func = vim.lsp.buf.implementation,                                           desc = 'implementation' }, -- insert
+          { key = '<Space>D',   func = vim.lsp.buf.type_definition,                                          desc = 'type_definition' },
+          { key = 'gL',         func = require('navigator.diagnostics').show_diagnostics,                    desc = 'show_diagnostics' },
+          { key = 'gG',         func = require('navigator.diagnostics').show_buf_diagnostics,                desc = 'show_buf_diagnostics' },
+          { key = '<Leader>dt', func = require('navigator.diagnostics').toggle_diagnostics,                  desc = 'toggle_diagnostics' },
+          { key = ']d',         func = require('navigator.diagnostics').goto_next,                           desc = 'next diagnostics error or fallback' },
+          { key = '[d',         func = require('navigator.diagnostics').goto_prev,                           desc = 'prev diagnostics error or fallback' },
+          { key = ']O',         func = vim.diagnostic.set_loclist,                                           desc = 'diagnostics set loclist' },
+          { key = ']r',         func = require('navigator.treesitter').goto_next_usage,                      desc = 'goto_next_usage' },
+          { key = '[r',         func = require('navigator.treesitter').goto_previous_usage,                  desc = 'goto_previous_usage' },
+          { key = '<Leader>k',  func = require('navigator.dochighlight').hi_symbol,                          desc = 'hi_symbol' },
+          { key = '<Space>wa',  func = require('navigator.workspace').add_workspace_folder,                  desc = 'add_workspace_folder' },
+          { key = '<Space>wr',  func = require('navigator.workspace').remove_workspace_folder,               desc = 'remove_workspace_folder' },
+          { key = '<Space>gm',  func = require('navigator.formatting').range_format,                         mode = 'n',                                 desc = 'range format operator e.g gmip' },
+          { key = '<Space>wl',  func = require('navigator.workspace').list_workspace_folders,                desc = 'list_workspace_folders' },
+          { key = '<Space>la',  func = require('navigator.codelens').run_action,                             desc = 'run code lens action',              mode = 'n' }
+        }
+      })
+    end,
     lazy = false
   }
 }
