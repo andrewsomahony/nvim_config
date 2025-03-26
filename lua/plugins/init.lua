@@ -224,6 +224,7 @@ return {
           code_action = {
             enable = false
           },
+          format_on_save = false,
           servers = {
             -- Add our assembly language server so we can get all the nice UI goodies with it :D
             "asm_lsp"
@@ -232,9 +233,8 @@ return {
         keymaps = {
           { key = 'gr',         func = require('navigator.reference').async_ref,                             desc = 'async_ref' },
           { key = '<Leader>gr', func = require('navigator.reference').reference,                             desc = 'reference' }, -- reference deprecated
-          { key = '<M-k>',      func = vim.lsp.buf.signature_help,                                           desc = 'signature_help',                    mode = 'i' },
-          { key = 'K',          func = vim.lsp.buf.signature_help,                                           desc = 'signature_help' },
-          { key = '<Leader>g0', func = require('navigator.symbols').document_symbols,                        desc = 'document_symbols' },
+          { key = 'SS',         func = vim.lsp.buf.signature_help,                                           desc = 'signature_help' },
+          { key = 'gs',         func = require('navigator.symbols').document_symbols,                        desc = 'document_symbols' },
           { key = 'gW',         func = require('navigator.workspace').workspace_symbol_live,                 desc = 'workspace_symbol_live' },
           { key = '<c-]>',      func = require('navigator.definition').definition,                           desc = 'definition' },
           { key = 'gd',         func = remap(require('navigator.definition').definition, 'gd'),              desc = 'definition' },
