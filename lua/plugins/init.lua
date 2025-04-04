@@ -233,6 +233,9 @@ return {
             -- so far is working the same if not better than nvchad's lspconfig
             "asm_lsp"
           },
+          asm_lsp = {
+            filetypes = { "ASM", "asm", "vmasm" }
+          },
           lua_ls = {
             settings = {
               Lua = {
