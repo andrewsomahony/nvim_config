@@ -14,7 +14,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason").setup()
-      require("mason-lspconfig").setup({})
+      require("mason-lspconfig").setup({
+        ensure_installed = require("configs.ensure-installed")
+      })
     end
   },
   {
@@ -64,7 +66,7 @@ return {
       "nvim-neotest/neotest-python",
       "mfussenegger/nvim-dap-python",
       "mfussenegger/nvim-dap",
-      "nvim-neotest/neotest-go"
+      "fredrikaverpil/neotest-golang"
     },
     config = function()
       require("neotest").setup({
@@ -76,7 +78,7 @@ return {
               justMyCode = false
             }
           }),
-          require("neotest-go")
+          require("neotest-golang")
         }
       })
     end
@@ -227,7 +229,31 @@ return {
           format_on_save = false,
           servers = {
             -- Add our assembly language server so we can get all the nice UI goodies with it :D
+            -- This will call on_init and on_attach and such, and add some settings as well, which
+            -- so far is working the same if not better than nvchad's lspconfig
             "asm_lsp"
+          },
+          lua_ls = {
+            settings = {
+              Lua = {
+                -- We need to put specific settings here to allow the vim global to be visible
+                -- to our LSP so we don't get a million errors about it :D
+                diagnostics = {
+                  globals = { "vim" },
+                },
+                workspace = {
+                  library = {
+                    vim.fn.expand "$VIMRUNTIME/lua",
+                    vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
+                    vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
+                    vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+                    "${3rd}/luv/library",
+                  },
+                  maxPreload = 100000,
+                  preloadFileSize = 10000,
+                },
+              },
+            },
           }
         },
         keymaps = {
@@ -237,7 +263,9 @@ return {
           { key = 'gs',         func = require('navigator.symbols').document_symbols,                        desc = 'document_symbols' },
           { key = 'gW',         func = require('navigator.workspace').workspace_symbol_live,                 desc = 'workspace_symbol_live' },
           { key = '<c-]>',      func = require('navigator.definition').definition,                           desc = 'definition' },
-          { key = 'gd',         func = remap(require('navigator.definition').definition, 'gd'),              desc = 'definition' },
+          -- For some reason, the navigator function for goto definition doesn't work well, either
+          -- with Linux or C++, or both, not sure
+          { key = 'gd',         func = vim.lsp.buf.definition,              desc = 'definition' },
           { key = 'gD',         func = vim.lsp.buf.declaration,                                              desc = 'declaration', },            -- fallback used
           -- for lsp handler
           { key = 'gp',         func = remap(require('navigator.definition').definition_preview, 'gp'),      desc = 'definition_preview' },      -- paste
