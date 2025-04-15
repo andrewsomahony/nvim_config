@@ -52,7 +52,7 @@ return {
         "vim", "lua", "vimdoc",
         "html", "css", "python",
         "dockerfile", "cpp", "go",
-        "asm"
+        "asm", "rust"
       },
     }
   },
@@ -66,7 +66,8 @@ return {
       "nvim-neotest/neotest-python",
       "mfussenegger/nvim-dap-python",
       "mfussenegger/nvim-dap",
-      "fredrikaverpil/neotest-golang"
+      "fredrikaverpil/neotest-golang",
+      "rouge8/neotest-rust"
     },
     config = function()
       require("neotest").setup({
@@ -78,7 +79,8 @@ return {
               justMyCode = false
             }
           }),
-          require("neotest-golang")
+          require("neotest-golang"),
+          require("neotest-rust")
         }
       })
     end
@@ -211,6 +213,11 @@ return {
     },
     lazy = false
   },
+ -- {
+ --   "mrcjkb/rustaceanvim",
+ --   version = "^6",
+ --   lazy = false,
+ -- },
   {
     "ray-x/navigator.lua",
     dependencies = {

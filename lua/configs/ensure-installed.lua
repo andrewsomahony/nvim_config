@@ -7,5 +7,6 @@ return {
   "docker_compose_language_service",
   "lua_ls",
   "bashls",
-  "jsonls"
+  "jsonls",
+  "rust_analyzer"
 }
