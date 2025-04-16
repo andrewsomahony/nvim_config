@@ -11,11 +11,17 @@ return {
     end,
   },
   {
+    "jay-babu/mason-nvim-dap.nvim"
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = require("configs.ensure-installed")
+      })
+      require("mason-nvim-dap").setup({
+        ensure_installed = {"codelldb"}
       })
     end
   },
@@ -80,7 +86,7 @@ return {
             }
           }),
           require("neotest-golang"),
-          require("neotest-rust")
+          require("neotest-rust"),
         }
       })
     end
@@ -213,6 +219,7 @@ return {
     },
     lazy = false
   },
+  -- THIS PLUGIN DOES NOT WORK AT ALL
  -- {
  --   "mrcjkb/rustaceanvim",
  --   version = "^6",

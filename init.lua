@@ -36,6 +36,8 @@ vim.schedule(function()
   require "mappings"
 end)
 
+require("configs.codelldb-dap").setup()
+
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
 	desc = "prevent colorscheme clears self-defined DAP icon colors.",
