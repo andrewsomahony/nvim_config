@@ -3,22 +3,6 @@ local dap = require("dap")
 local M = {}
 
 M.setup = function ()
-  -- Find out where to look for the pretty printer Python module.
-  local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
-  assert(
-    vim.v.shell_error == 0,
-    'failed to get rust sysroot using `rustc --print sysroot`: '
-      .. rustc_sysroot
-  )
-    print(rustc_sysroot)
-  local script_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py'
-  local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
-
-  local command1 = '!command script import "' .. script_file .. '"'
-  local command2 = "command source '" .. commands_file .. "'"
-
-  -- vim.cmd ([[command source '%s']]):format(commands_file)
-
   dap.adapters.codelldb = function (callback, client_config)
     -- !!! NEED TO MAKE THIS MORE FLUID AND ALSO COMPATIBLE FOR LINUX
     local has_mason, mason_registry = pcall(require, 'mason-registry')
@@ -48,6 +32,7 @@ M.setup = function ()
       }
     )
   end
+
 end
 
 return M

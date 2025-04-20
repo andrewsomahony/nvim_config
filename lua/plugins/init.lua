@@ -63,6 +63,9 @@ return {
     }
   },
   {
+    "andrewsomahony/neotest-rust-fork",
+  },
+  {
     "nvim-neotest/neotest",
     dependencies = {
       "nvim-neotest/nvim-nio",
@@ -73,7 +76,6 @@ return {
       "mfussenegger/nvim-dap-python",
       "mfussenegger/nvim-dap",
       "fredrikaverpil/neotest-golang",
-      "rouge8/neotest-rust"
     },
     config = function()
       require("neotest").setup({
@@ -86,7 +88,7 @@ return {
             }
           }),
           require("neotest-golang"),
-          require("neotest-rust"),
+          require("configs.rust-neotest-adapter"),
         }
       })
     end
