@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("FileType", {
         map("i", "{}}", "{}<Left><CR><CR><Up><C-f>", {noremap = true})
       end
 
-      map("n", "<C-b>", ":lua require('dap').toggle_breakpoint()<CR>")
+      map("n", "<Leader>br", ":lua require('dap').toggle_breakpoint()<CR>")
       map("n", "dc", ":lua require('dap').continue()<CR>")
 
       -- When we open and close a parenthesis, automatically move the cursor within it;

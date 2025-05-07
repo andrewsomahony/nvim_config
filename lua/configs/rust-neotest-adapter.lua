@@ -11,13 +11,18 @@ local script_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py'
 -- Assemble our commands file path using our rustc sysroot
 local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
 
--- Require our neotest adapter
-local rust_neotest_adapter = require("neotest-rust")
-
--- Add our init commands to our Neotest Rust CodeLLDB adapter, 
--- which will execute when codelldb is executed
-rust_neotest_adapter.addCodeLLDBInitCommand("command script import '" .. script_file .. "'")
-rust_neotest_adapter.addCodeLLDBInitCommand("command source '" .. commands_file .."'")
+-- Require our neotest adapter and pass in our initCommands
+local rust_neotest_adapter = require("neotest-rust")({
+  args = {
+    -- We can use our plugin's metatable to pass in arguments that will be
+    -- used by the plugin; in this case, we want to import our LLDB lookup
+    -- script as well as source our commands file for use by code_lldb
+    initCommands = {
+        "command script import '" .. script_file .. "'",
+        "command source '" .. commands_file .."'"
+      }
+  }
+})
 
 -- Return our modified adapter
 return rust_neotest_adapter;
