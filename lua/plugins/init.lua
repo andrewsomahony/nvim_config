@@ -222,7 +222,7 @@ return {
     },
     lazy = false
   },
-  -- THIS PLUGIN DOES NOT WORK AT ALL
+  -- THIS PLUGIN DOES NOT WORK AT ALL FOR SOME REASON
  -- {
  --   "mrcjkb/rustaceanvim",
  --   version = "^6",
