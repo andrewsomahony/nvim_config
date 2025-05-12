@@ -229,7 +229,7 @@ return {
  --   lazy = false,
  -- },
   {
-    "ray-x/navigator.lua",
+    "andrewsomahony/rayx-navigator-fork",
     dependencies = {
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig"
