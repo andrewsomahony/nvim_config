@@ -7,7 +7,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "configs.lspconfig"
     end,
   },
   {
@@ -18,6 +17,8 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
+        -- THIS IS KEY AS THIS FEATURE DOES NOT WORK WITH RAYX-NAVIGATOR AT THIS TIME
+        automatic_enable = false,
         ensure_installed = require("configs.ensure-installed")
       })
       require("mason-nvim-dap").setup({
