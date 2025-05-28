@@ -5,6 +5,9 @@ local M = {}
 M.setup = function ()
   dap.adapters.codelldb = function (callback, client_config)
     -- !!! NEED TO MAKE THIS MORE FLUID AND ALSO COMPATIBLE FOR LINUX
+    -- !!! For nix, we don't plan on using Mason, so we can have some sort of global
+    -- !!! config option to simply call the executable, as it will be on our path.
+
     local has_mason, mason_registry = pcall(require, 'mason-registry')
     local codelldb_package = mason_registry.get_package('codelldb')
     local mason_codelldb_path

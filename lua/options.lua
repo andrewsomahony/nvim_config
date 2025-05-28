@@ -5,6 +5,9 @@ vim.o.relativenumber = true
 vim.o.statuscolumn = "%s %l %r"
 vim.o.numberwidth = 8
 
+-- !!! TODO: Change the shell if desired
+-- !!! TODO: Enable/disable plugins dynamically, such as Mason if we are using Nix
+
 -- Set this to nil to have NVIM load the python3 provider
 vim.g.loaded_python3_provider = nil
 
