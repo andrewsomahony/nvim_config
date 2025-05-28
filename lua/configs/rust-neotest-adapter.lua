@@ -7,7 +7,6 @@ local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
 -- adapter with the specific commands
 
 if 0 == vim.v.shell_error then
-  print("Good to go")
   -- Assemble our script file path using our rustc sysroot
   local script_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py'
   -- Assemble our commands file path using our rustc sysroot
