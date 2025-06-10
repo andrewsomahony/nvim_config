@@ -1,7 +1,7 @@
 local return_value = {}
 
 -- Load our Mason options
-local mason_options = require("dynamic_options").load_mason_options()
+local mason_options = require("dynamic_options").mason_options
 
 if true == mason_options.has_mason then
   table.insert(

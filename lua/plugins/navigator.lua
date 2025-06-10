@@ -1,5 +1,5 @@
 -- Load our Mason options
-local mason_options = require("dynamic_options").load_mason_options()
+local dynamic_options = require("dynamic_options")
 
 return {
     "andrewsomahony/rayx-navigator-fork",
@@ -10,20 +10,14 @@ return {
     config = function()
       local remap = require('navigator.util').binding_remap
       require("navigator").setup({
-        mason = mason_options.has_mason,
+        mason = dynamic_options.mason_options.has_mason,
         default_mapping = false,
         lsp = {
           code_action = {
             enable = false
           },
           format_on_save = false,
-          servers = {
-            -- Add our assembly language server so we can get all the nice UI goodies with it :D
-            -- This will call on_init and on_attach and such, and add some settings as well, which
-            -- so far is working the same if not better than nvchad's lspconfig
-            "asm_lsp",
-            "nixd"
-          },
+          servers = dynamic_options.lsp_servers,
           asm_lsp = {
             filetypes = { "ASM", "asm", "vmasm" }
           },
