@@ -8,5 +8,6 @@ return {
   "lua_ls",
   "bashls",
   "jsonls",
-  "rust_analyzer"
+  "rust_analyzer",
+  -- The Fish LSP is not supported by Mason at this time
 }
