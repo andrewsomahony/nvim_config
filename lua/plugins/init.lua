@@ -1,7 +1,6 @@
 local return_value = {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
   },
   {
@@ -42,7 +41,7 @@ local return_value = {
         "vim", "lua", "vimdoc",
         "html", "css", "python",
         "dockerfile", "cpp", "go",
-        "asm", "rust", "nix"
+        "asm", "rust", "nix", "fish"
       },
     }
   },
@@ -96,31 +95,35 @@ local return_value = {
   {
     "artemave/workspace-diagnostics.nvim",
   },
-  {
-    "ray-x/go.nvim",
-    dependencies = {
-      "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      -- We cannot use the plugin's LSP as it throws an Exception with every token
-      -- handler!
-      require("go").setup({
-        -- We don't want this plugin messing up our keymaps, as it seems to
-        -- hit really common ones like O, which is really silly
-        dap_debug_keymap = false,
-      })
-    end,
-    event = {
-      "CmdlineEnter"
-    },
-    ft = {
-      "go",
-      "gomod"
-    },
-    build = ":lua require('go.install').update_all_sync()"
-  },
+  -- We don't need this as navigator.nvim has it already, minus some of the
+  -- extra commands like "GoGet" and "GoBuild", which we don't really need.
+  -- {
+  --   "ray-x/go.nvim",
+  --   dependencies = {
+  --     "ray-x/guihua.lua",
+  --     "neovim/nvim-lspconfig",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function()
+  --     -- We cannot use the plugin's LSP as it throws an Exception with every token
+  --     -- handler!
+  --     require("go").setup({
+  --       -- We don't want this plugin messing up our keymaps, as it seems to
+  --       -- hit really common ones like O, which is really silly
+  --       dap_debug_keymap = false,
+  --     })
+  --   end,
+  --   event = {
+  --     "CmdlineEnter"
+  --   },
+  --   ft = {
+  --     "go",
+  --     "gomod"
+  --   },
+  --   -- !!! This slows down the install as it's running synchronously!
+  --   -- !!! Need to fix this
+  --   build = ":lua require('go.install').update_all_sync()"
+  -- },
   {
     -- We need this Go dap adapter because xray go only loads an adapter
     -- when we debug (lazy loading), while we want to debug with neotest
