@@ -41,7 +41,8 @@ local return_value = {
         "vim", "lua", "vimdoc",
         "html", "css", "python",
         "dockerfile", "cpp", "go",
-        "asm", "rust", "nix", "fish"
+        "asm", "rust", "nix", "fish",
+        "json"
       },
     }
   },
