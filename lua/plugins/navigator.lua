@@ -21,6 +21,11 @@ return {
           asm_lsp = {
             filetypes = { "ASM", "asm", "vmasm" }
           },
+          rust_analyzer = {
+            settings = {
+              ['rust-analyzer'] = dynamic_options.rust_analyzer
+            }
+          },
           lua_ls = {
             settings = {
               Lua = {

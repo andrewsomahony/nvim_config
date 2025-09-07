@@ -6,6 +6,17 @@ local load_dynamic_options = function (name)
 end
 -- !!! Load everything dynamically in future!
 
+local load_rust_analyzer = function ()
+  local has_options, options = load_dynamic_options("rust_analyzer")
+
+  if not has_options then
+    options = {}
+  end
+
+  -- Return our rust analyzer options
+  return options
+end
+
 local load_lsp_servers = function ()
   local has_options, options = load_dynamic_options("lsp_servers")
 
@@ -37,5 +48,6 @@ end
 
 M["mason_options"] = load_mason_options()
 M["lsp_servers"] = load_lsp_servers()
+M["rust_analyzer"] = load_rust_analyzer()
 
 return M
