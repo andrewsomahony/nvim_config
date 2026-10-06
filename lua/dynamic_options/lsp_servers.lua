@@ -1,6 +1,1 @@
--- Default extra LSP servers
-return {
-  "asm_lsp",
-  "nixd",
-  "bashls",
-};
+return {"asm_lsp","nixd","bashls","fish_lsp"};

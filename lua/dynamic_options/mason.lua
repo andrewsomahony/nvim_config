@@ -1,4 +1,4 @@
 -- Default to true
 return {
-  has_mason = true
+  has_mason = false
 }
