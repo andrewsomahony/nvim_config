@@ -2,7 +2,7 @@
 local dynamic_options = require("dynamic_options")
 
 return {
-    "andrewsomahony/rayx-navigator-fork",
+    "ray-x/navigator.lua",
     dependencies = {
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig"
@@ -14,12 +14,26 @@ return {
         default_mapping = false,
         lsp = {
           code_action = {
-            enable = false
+            enable = false,
+            sign = false,
+            virtual_text = false;
+          },
+          code_lens_action = {
+            enable = false,
+            sign = false,
+            virtual_text = false;
           },
           format_on_save = false,
           servers = dynamic_options.lsp_servers,
           asm_lsp = {
             filetypes = { "ASM", "asm", "vmasm" }
+          },
+          tsc = {
+            -- We have to set our root markers here, as there is a bug with rayx-navigator
+            -- not being able to call lspconfig root_dir methods that take a callback
+            root_markers = {
+              'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock', '.git'
+            },
           },
           rust_analyzer = {
             settings = {

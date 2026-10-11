@@ -1,1 +1,1 @@
-return {"asm_lsp","nixd","bashls","fish_lsp"};
+return {"asm_lsp","nixd","bashls","fish_lsp","tsc"};

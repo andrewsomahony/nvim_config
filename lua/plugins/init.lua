@@ -36,15 +36,15 @@ local return_value = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
+    config = function ()
+      require("nvim-treesitter").install({
         "vim", "lua", "vimdoc",
         "html", "css", "python",
         "dockerfile", "cpp", "go",
         "asm", "rust", "nix", "fish",
-        "json"
-      },
-    }
+        "json", "javascript"
+      })
+    end
   },
   {
     "andrewsomahony/neotest-rust-fork",
